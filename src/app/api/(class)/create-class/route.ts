@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Check if teacher and school exist
-    const teacherByOne = await Teacher.findOne({teacher});
+    const teacherByOne = await Teacher.find({teacher});
     const schoolByOne = await School.findById(school);
 
     if (!teacherByOne || !schoolByOne) {
@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
       classname,
       school: schoolByOne._id,
       classalias,
-      teacher: [teacherByOne._id], // Ensure teacher is an array
+      teacher, // Ensure teacher is an array
       size,
     });
 

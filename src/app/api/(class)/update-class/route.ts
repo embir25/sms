@@ -3,9 +3,9 @@ import Class from "../../../../../Model/Class/class";
 
 export async function PUT(req: NextRequest) {
   try {
-    const { data, id } = await req.json();
+    const { data, _id } = await req.json();
 
-    if (!id) {
+    if (!_id) {
       return NextResponse.json(
         {
           message: "Invalid request. 'id' is required for updating a class.",
@@ -14,7 +14,7 @@ export async function PUT(req: NextRequest) {
       );
     }
 
-    const updatedClass = await Class.findByIdAndUpdate(id, data, {
+    const updatedClass = await Class.findByIdAndUpdate({_id}, data, {
       new: true, 
       runValidators: true,
     });
@@ -22,7 +22,7 @@ export async function PUT(req: NextRequest) {
     if (!updatedClass) {
       return NextResponse.json(
         {
-          message: `Class with id ${id} not found.`,
+          message: `Class with id ${_id} not found.`,
         },
         { status: 404 }
       );

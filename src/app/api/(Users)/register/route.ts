@@ -121,7 +121,7 @@ export async function POST(req: NextRequest) {
         class: data.class,
         section: data.section,
         admissioncode: data.admissioncode,
-        schoolId:data?.schoolId,
+        schoolId:data.schoolId,
         parent: {
             fullname:data.parent.fullname,
             phone:data.parent.phone,
