@@ -14,7 +14,7 @@ export async function PUT(req: NextRequest) {
       );
     }
 
-    const updatedClass = await Class.findByIdAndUpdate({_id}, data, {
+    const updatedClass = await Class.findOneAndUpdate({_id}, data, {
       new: true, 
       runValidators: true,
     });

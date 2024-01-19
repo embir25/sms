@@ -3,9 +3,9 @@ import Class from "../../../../../Model/Class/class";
 
 export async function DELETE(req: NextRequest) {
   try {
-    const { id } = await req.json();
+    const { _id } = await req.json();
 
-    if (!id) {
+    if (!_id) {
       return NextResponse.json(
         {
           message: "Invalid request. 'id' is required for deleting a class.",
@@ -14,12 +14,12 @@ export async function DELETE(req: NextRequest) {
       );
     }
 
-    const deletedClass = await Class.findByIdAndDelete(id);
+    const deletedClass = await Class.findOneAndDelete({_id});
 
     if (!deletedClass) {
       return NextResponse.json(
         {
-          message: `Class with id ${id} not found.`,
+          message: `Class with id ${_id} not found.`,
         },
         { status: 404 }
       );

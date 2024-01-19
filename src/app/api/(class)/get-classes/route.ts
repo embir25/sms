@@ -1,44 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
 import Class from "../../../../../Model/Class/class";
 
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function GET() {
   try {
-    const { schoolId } = await req.json();
-
-    // Validate schoolId
-    if (!schoolId ) {
-      return NextResponse.json(
-        {
-          message: "Invalid request. 'schoolId' is required.",
-        },
-        { status: 400 }
-      );
-    }
-
-    const classes = await Class.find({ schoolId})
-
-    if (!classes || classes.length === 0) {
-      return NextResponse.json(
-        {
-          message: `No class found for schoolId ${schoolId}.`,
-        },
-        { status: 404 }
-      );
-    }
+    const classes = await Class.find();
 
     return NextResponse.json(
       {
-        message: "Student found",
+        message: "All classes",
         data: classes,
       },
       { status: 200 }
     );
-  } catch (error :any) {
-    console.error("Error:", error.message);
+  } catch (error) {
     return NextResponse.json(
       {
         message: "Internal server error",
-        error: error.message,
       },
       { status: 500 }
     );
