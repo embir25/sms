@@ -26,7 +26,7 @@ const studentSchema = new mongoose.Schema(
       type: String,
     },
     section: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,ref:"Section",
     },
     admissioncode: {
       type: String,

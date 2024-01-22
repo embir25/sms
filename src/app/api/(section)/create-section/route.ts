@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json(
       {
-        message: "Payment created",
+        message: "Section created",
         data: savedSection,
       },
       { status: 200 }

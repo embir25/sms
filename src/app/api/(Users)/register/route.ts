@@ -12,14 +12,14 @@ export async function POST(req: NextRequest) {
   try {
     await connectDB();
     const { data } = await req.json();
-    const existingUser = await User.findOne({ email: data.email });
+    const existingUser = await User.findOne({ email:data.email });
     const singleSchool = await School.findOne({ fullname: data.school })
 
     if (existingUser) {
       return NextResponse.json(
         {
           message: "User with this email already exist",
-          data: [],
+          data:[]
         },
         { status: 400 }
       );
@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
     if (!data.password || !data.email || !data.role) {
       return NextResponse.json(
         {
-          message: "Please ensure to fill all fieds",
+          message: "Please ensure to fill all fields",
           data: [],
         },
         { status: 400 }
@@ -130,7 +130,7 @@ export async function POST(req: NextRequest) {
             fullname:data.parent.fullname,
             phone:data.parent.phone,
             proffession:data.parent.proffession,
-            parentemail:data.parent.parente
+            parentemail:data.parent.parentemail
         }
       };
       const savedStudent = await new Student(roleSpecificData).save();

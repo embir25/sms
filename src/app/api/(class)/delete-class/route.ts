@@ -13,8 +13,8 @@ export async function DELETE(req: NextRequest) {
         { status: 400 }
       );
     }
-
-    const deletedClass = await Class.findOneAndDelete({_id});
+    
+    const deletedClass = await Class.findOneAndDelete({_id: _id}).maxTimeMS(3000);
 
     if (!deletedClass) {
       return NextResponse.json(

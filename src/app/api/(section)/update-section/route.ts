@@ -3,9 +3,9 @@ import Section from "../../../../../Model/Section/section";
 
 export async function PUT(req: NextRequest) {
   try {
-    const { name, nickname, teacher, id } = await req.json();
+    const { name, nickname, teacher, _id } = await req.json();
 
-    if (!id) {
+    if (!_id) {
       return NextResponse.json(
         {
           messasge: "could not update section",
@@ -14,7 +14,7 @@ export async function PUT(req: NextRequest) {
       );
     }
 
-    const updatedSection = await Section.findByIdAndUpdate(id, {
+    const updatedSection = await Section.findOneAndUpdate(_id, {
       name,
       nickname,
       teacher,

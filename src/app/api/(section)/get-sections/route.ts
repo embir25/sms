@@ -7,7 +7,7 @@ export async function GET() {
 
     return NextResponse.json(
       {
-        message: "All schools",
+        message: "All sections",
         data: sections,
       },
       { status: 200 }
