@@ -11,8 +11,7 @@ export async function POST(req: NextRequest) {
       staffname,
       school,
       amount,
-      title,
-      description,
+      narration,
       transactiondate,
       status,
       stafftype,
@@ -24,7 +23,6 @@ export async function POST(req: NextRequest) {
       !school ||
       !transactiondate ||
       !staffname ||
-      !school ||
       !stafftype
     ) {
       return NextResponse.json(
@@ -39,8 +37,7 @@ export async function POST(req: NextRequest) {
       staffname,
       stafftype,
       school: school,
-      title,
-      description,
+      narration,
       transactiondate,
       status,
       amount,

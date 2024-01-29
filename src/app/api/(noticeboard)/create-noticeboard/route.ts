@@ -9,7 +9,7 @@ export async function POST(req: NextRequest) {
     await connectDB()
     const {school, title, description, date } = await req.json();
 
-    if (!school ||!title || !date || description) {
+    if (!school || !title || !date || description) {
       return NextResponse.json(
         {
           messasge: "Please provide name, location and phone",

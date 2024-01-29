@@ -1,26 +1,28 @@
 import { NextRequest, NextResponse } from "next/server";
-import Payment from "../../../../../Model/Payment/payment";
+import Fees from "../../../../../Model/Fees/fees";
 
-export async function DELETE(req: NextRequest) {
+export async function PUT(req: NextRequest) {
   try {
-    const { id } = await req.json();
+    const { data, id } = await req.json();
 
     if (!id) {
       return NextResponse.json(
         {
-          message:
-            "Invalid request. 'id' is required for deleting a Payment Info.",
+          message: "Invalid request. 'id' is required for updating a Fees Info.",
         },
         { status: 400 }
       );
     }
 
-    const deletedPayment = await Payment.findByIdAndDelete(id);
+    const updatedFees = await Fees.findByIdAndUpdate(id, data, {
+      new: true, 
+      runValidators: true,
+    });
 
-    if (!deletedPayment) {
+    if (!updatedFees) {
       return NextResponse.json(
         {
-          message: `Payment with id ${id} not found.`,
+          message: `Fees with id ${id} not found.`,
         },
         { status: 404 }
       );
@@ -28,12 +30,12 @@ export async function DELETE(req: NextRequest) {
 
     return NextResponse.json(
       {
-        message: "Payment deleted",
-        data: deletedPayment,
+        message: "Fees updated",
+        data: updatedFees,
       },
       { status: 200 }
     );
-  } catch (error: any) {
+  } catch (error:any) {
     console.error("Error:", error.message);
     return NextResponse.json(
       {

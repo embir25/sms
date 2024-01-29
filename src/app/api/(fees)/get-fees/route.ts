@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import Payment from "../../../../../Model/Payment/payment";
+import Fees from "../../../../../Model/Fees/fees";
 
 export async function POST(req: NextRequest, res: NextResponse) {
   try {
@@ -15,12 +15,12 @@ export async function POST(req: NextRequest, res: NextResponse) {
       );
     }
 
-    const allPayment = await Payment.find({ schoolId})
+    const allFees = await Fees.find({ schoolId})
 
-    if (!allPayment || allPayment.length === 0) {
+    if (!allFees || allFees.length === 0) {
       return NextResponse.json(
         {
-          message: `No class found for schoolId ${schoolId}.`,
+          message: `No fees found for schoolId ${schoolId}.`,
         },
         { status: 404 }
       );
@@ -28,8 +28,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
     return NextResponse.json(
       {
-        message: "Student found",
-        data: allPayment,
+        message: "Fees found",
+        data: allFees,
       },
       { status: 200 }
     );

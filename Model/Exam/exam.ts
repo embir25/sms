@@ -8,7 +8,7 @@ const examSchema = new mongoose.Schema(
       type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Subject" }],
       required: true,
     },
-    examdate: { type: Date },
+    examdate: { type: String },
     status: { type: String },
   },
   { timestamps: true }

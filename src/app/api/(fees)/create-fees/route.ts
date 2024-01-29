@@ -1,16 +1,15 @@
 // Import other necessary modules
 import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/config/connection";
-import Section from "../../../../../Model/Section/section";
 import Student from "../../../../../Model/Student/student";
-import Payment from "../../../../../Model/Payment/payment";
+import Fees from "../../../../../Model/Fees/fees";
 
 
 export async function POST(req: NextRequest) {
   try {
     await connectDB();
     
-    const { classname, student, school, amount, title, description, section, transactiondate, status  } = await req.json();
+    const { classname, student, school, amount, transactiondate, status  } = await req.json();
     
     if ( !amount || !status || !school || !transactiondate) {
       return NextResponse.json(
@@ -24,7 +23,7 @@ export async function POST(req: NextRequest) {
     
   
     const studentByOne = await Student.findOne({student})
-    const sectionByOne =  await Section.findOne({section})
+    
 
     if (!studentByOne) {
       return NextResponse.json(
@@ -35,25 +34,22 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const newPayment = new Payment({
+    const newFees = new Fees({
       classname,
       school,
       student: studentByOne._id,
-      section: sectionByOne._id,
-      title,
-      description,
       transactiondate,
       status,
-      amount// Ensure teacher is an array
+      amount
       
     });
 
-    const savedPayment = await newPayment.save();
+    const savedFees = await newFees.save();
 
     return NextResponse.json(
       {
-        message: "Payment created",
-        data: savedPayment,
+        message: "Fees created",
+        data: savedFees,
       },
       { status: 200 }
     );
